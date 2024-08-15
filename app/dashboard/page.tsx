@@ -17,6 +17,7 @@ import { changeLanguageIcon } from "@/lib/lang-icon";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type User = {
   username: string;
@@ -44,9 +45,28 @@ function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
   const [selectedFilter, setSelectedFilter] = useState<string>();
 
-  const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedFilter(event.target.value);
-    filterTipByLanguage(event.target.value);
+  // const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelectedFilter(event.target.value);
+  //   filterTipByLanguage(event.target.value);
+  // };
+
+  const searchTip = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value;
+    const filtered = tips.filter(
+      (tip) =>
+        tip.title.toLowerCase().includes(query.toLowerCase()) ||
+        tip.language.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredTips(filtered);
+    // setTopTips(filtered.slice(0, 5));
+    setCurrentPage(1);
+
+    if (!filtered) {
+      setSelectedFilter("All");
+    }
+    // setSelectedFilter("All");
+
+    console.log(`Searching for: ${query}`);
   };
 
   const filterTipByLanguage = (language: string, page: number = 1) => {
@@ -103,6 +123,7 @@ function Dashboard() {
             <Input
               placeholder="Search tips based on programming language or topic"
               className="max-w-screen-md"
+              onChange={searchTip}
             />
 
             <Button className="inline-flex gap-2 items-center">
@@ -115,16 +136,16 @@ function Dashboard() {
             <h1 className="text-2xl md:text-4xl tracking-tighter font-extrabold text-muted-foreground">
               Popular
             </h1>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-sm mt-2">
               Popular coding tips our editors curated!
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
               {topTips.map((tip) => (
                 <Link
                   href={`dashboard/tips/${tip.id}`}
                   key={tip.id}
-                  className="mt-4 hover:scale-105 duration-50 transition-transform"
+                  className="mt-4 hover:scale-x-105 duration-50 transition-transform"
                 >
                   <Card className="mt-4 hover:shadow-lg">
                     <CardHeader>
@@ -145,21 +166,30 @@ function Dashboard() {
             </div>
 
             {/* Filters */}
-            <div className="mt-5">
+            <div className="mt-10">
               <h1 className="text-2xl md:text-4xl tracking-tighter font-extrabold text-muted-foreground">
                 Filters
               </h1>
+
+              <p className="text-sm text-center text-muted-foreground">
+                <span className="underline">click</span> to filter by{" "}
+                <span className="underline text-blue-600">language</span>
+              </p>
               <div className="flex gap-4 flex-wrap items-center mt-4 mb-4 justify-center">
                 {FILTERS.map((filter, i) => (
                   <small
                     key={i}
                     className={buttonVariants({
-                      variant: "default",
-                      className: `cursor-pointer rounded-full hover:bg-opacity-50 hover:text-white ${
-                        selectedFilter === filter
-                          ? "text-muted-foreground"
-                          : "bg-accent text-accent-foreground"
-                      }`,
+                      size: "default",
+                      variant:
+                        selectedFilter === filter ? "default" : "outline",
+                      className: cn(
+                        "text-sm text-center cursor-pointer text-muted-foreground rounded-full",
+                        {
+                          " text-blue-600 rounded-full":
+                            filter === selectedFilter,
+                        }
+                      ),
                     })}
                     onClick={() => filterTipByLanguage(filter)}
                   >
@@ -225,7 +255,7 @@ function Dashboard() {
 
 export default Dashboard;
 
-const LanguageIcon = ({ language }: { language: string }) => {
+export const LanguageIcon = ({ language }: { language: string }) => {
   const icon = changeLanguageIcon(language);
   if (typeof icon === "string") {
     return <span>{icon}</span>; // Render the string icon as text
