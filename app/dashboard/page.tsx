@@ -18,6 +18,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type User = {
   username: string;
@@ -58,7 +59,7 @@ function Dashboard() {
         tip.language.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredTips(filtered);
-    // setTopTips(filtered.slice(0, 5));
+    setTopTips(filtered.slice(0, 5));
     setCurrentPage(1);
 
     if (!filtered) {
@@ -115,9 +116,20 @@ function Dashboard() {
       {user ? (
         <div>
           <hr className="mb-2" />
-          <h1 className="font-bold underline tracking-tighter text-muted-foreground">
-            Hello {user.username}!
-          </h1>
+          <div className="flex justify-between gap-4">
+            <h1 className="font-bold underline tracking-tighter text-muted-foreground">
+              Hello {user.username}!
+            </h1>
+
+            <Avatar>
+              <AvatarImage
+                src="https://github.com/Akarikev.png"
+                width={10}
+                height={10}
+              />
+              <AvatarFallback>AK</AvatarFallback>
+            </Avatar>
+          </div>
 
           <div className="mt-4 flex justify-between items-center gap-4">
             <Input
@@ -137,7 +149,7 @@ function Dashboard() {
               Popular
             </h1>
             <p className="text-muted-foreground text-sm mt-2">
-              Popular coding tips our editors curated!
+              Popular coding tips our editors curated! based on languages!
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
