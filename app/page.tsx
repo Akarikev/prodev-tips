@@ -1,13 +1,9 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/77FEmaQ5y8o
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import Link from "next/link";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { JSX, SVGProps } from "react";
 
-export default function Component() {
+export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <header className="px-4 lg:px-6 h-14 flex items-center">
@@ -66,7 +62,7 @@ export default function Component() {
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link
-                    href="#"
+                    href="/onboarding"
                     className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                     prefetch={false}
                   >
@@ -74,6 +70,7 @@ export default function Component() {
                   </Link>
                 </div>
               </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/vercel.svg"
                 width="100"
@@ -92,8 +89,8 @@ export default function Component() {
                   Programming Tips for Every Skill Level
                 </h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Whether you're a beginner or an experienced developer, our
-                  programming tips cover a wide range of topics to help you
+                  Whether you&apos;re a beginner or an experienced developer,
+                  our programming tips cover a wide range of topics to help you
                   write cleaner, more efficient code and streamline your
                   development workflow.
                 </p>
@@ -162,10 +159,10 @@ export default function Component() {
                 </CardHeader>
                 <CardContent>
                   <p>
-                    "The programming tips on this site have been a
-                    game-changer\n for me. I've learned so many new techniques
-                    and best\n practices that have helped me write cleaner,
-                    more\n efficient code. Highly recommended!"
+                    &ldquo;The programming tips on this site have been a
+                    game-changer for me. I&apos;ve learned so many new
+                    techniques and best practices that have helped me write
+                    cleaner, more efficient code. Highly recommended!&ldquo;
                   </p>
                 </CardContent>
               </Card>
@@ -184,10 +181,10 @@ export default function Component() {
                 </CardHeader>
                 <CardContent>
                   <p>
-                    "As a front-end developer, I've found the tips on this
-                    site\n to be incredibly helpful in improving my workflow
-                    and\n writing more maintainable code. The content is\n
-                    easy-to-understand and practical."
+                    &ldquo;As a front-end developer, Ive found the tips on this
+                    site to be incredibly helpful in improving my workflow and
+                    writing more maintainable code. The content is
+                    easy-to-understand and practical.&ldquo;
                   </p>
                 </CardContent>
               </Card>
@@ -206,11 +203,11 @@ export default function Component() {
                 </CardHeader>
                 <CardContent>
                   <p>
-                    "As a full-stack developer, I've found the tips on this\n
-                    site to be invaluable. They cover a wide range of topics\n
-                    and have helped me improve my skills in both the front-end\n
-                    and back-end. Highly recommended for developers of all\n
-                    skill levels."
+                    &ldquo;As a full-stack developer, I&apos;ve found the tips
+                    on this site to be invaluable. They cover a wide range of
+                    topics and have helped me improve my skills in both the
+                    front-end and back-end. Highly recommended for developers of
+                    all skill levels.&ldquo;
                   </p>
                 </CardContent>
               </Card>
@@ -229,10 +226,10 @@ export default function Component() {
                 </CardHeader>
                 <CardContent>
                   <p>
-                    "As a backend engineer, I've found the programming tips on\n
-                    this site to be incredibly helpful in optimizing my code\n
-                    and improving performance. The content is well-researched\n
-                    and the tips are easy to implement."
+                    &ldquo;As a backend engineer, I&apos;ve found the
+                    programming tips on this site to be incredibly helpful in
+                    optimizing my code and improving performance. The content is
+                    well-researched and the tips are easy to implement.&ldquo;
                   </p>
                 </CardContent>
               </Card>
@@ -242,7 +239,16 @@ export default function Component() {
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <p className="text-xs text-muted-foreground">
-          &copy; 2024 Programming Tips. All rights reserved.
+          &copy; 2024 Programming Tips. All rights reserved. &nbsp;{" "}
+          <span className="font-extrabold">
+            developed by
+            <Link
+              href={"https://elorm.site"}
+              className="underline text-blue-600"
+            >
+              {""} elorm.tsx
+            </Link>
+          </span>
         </p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link
@@ -265,7 +271,9 @@ export default function Component() {
   );
 }
 
-function BetweenVerticalStartIcon(props) {
+function BetweenVerticalStartIcon(
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+) {
   return (
     <svg
       {...props}
@@ -286,7 +294,7 @@ function BetweenVerticalStartIcon(props) {
   );
 }
 
-function BinaryIcon(props) {
+function BinaryIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -310,7 +318,7 @@ function BinaryIcon(props) {
   );
 }
 
-function CodeIcon(props) {
+function CodeIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -330,7 +338,7 @@ function CodeIcon(props) {
   );
 }
 
-function PlusIcon(props) {
+function PlusIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
