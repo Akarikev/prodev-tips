@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LoaderPinwheel } from "lucide-react";
+import { LoaderPinwheel, PlusCircleIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { programmingTips } from "@/lib/data";
 import { Input } from "@/components/ui/input";
@@ -31,17 +31,11 @@ type Tip = {
   date: string;
 };
 
+const FILTERS = ["All", "JavaScript", "Python", "Java", "C#", "Ruby"];
+
 function Dashboard() {
   const [user, setUser] = useState<User | null>(null);
   const [topTips, setTopTips] = useState<Tip[]>([]);
-
-  const LanguageIcon = ({ language }: { language: string }) => {
-    const icon = changeLanguageIcon(language);
-    if (typeof icon === "string") {
-      return <>{icon}</>;
-    }
-    return React.createElement(icon, { className: "text-blue-500 h-6 w-6" });
-  };
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -71,7 +65,10 @@ function Dashboard() {
               className="max-w-screen-md "
             />
 
-            <Button>Add Tip</Button>
+            <Button className="inline-flex gap-2 items-center">
+              <PlusCircleIcon className="w-4 h-4" />
+              Add Tip
+            </Button>
           </div>
 
           <div className="mt-4">
@@ -90,7 +87,7 @@ function Dashboard() {
                     key={tip.id}
                     className="mt-4 hover:scale-105 duration-50 transition-transform"
                   >
-                    <Card className="mt-4 border border-muted-foreground hover:shadow-lg  ">
+                    <Card className="mt-4  hover:shadow-lg  ">
                       <CardHeader>
                         <CardTitle>{tip.title}</CardTitle>
                         <CardDescription>{tip.tip}</CardDescription>
@@ -108,6 +105,25 @@ function Dashboard() {
                 );
               })}
             </div>
+
+            {/* filters  */}
+            <div className="mt-5">
+              <h1 className="text-2xl md:text-4xl tracking-tighter font-extrabold text-muted-foreground">
+                Filters
+              </h1>
+              <div className="flex gap-4 items-center mt-4 mb-4 justify-center ">
+                {FILTERS.map((filter, i) => {
+                  return (
+                    <small
+                      key={i}
+                      className="cursor-pointer p-1.5 px-1.5 bg-zinc-200 hover:bg-zinc-500 text-black transition-all delay-100 hover:text-white rounded-full text-xs"
+                    >
+                      {filter}
+                    </small>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       ) : (
@@ -121,3 +137,11 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+const LanguageIcon = ({ language }: { language: string }) => {
+  const icon = changeLanguageIcon(language);
+  if (typeof icon === "string") {
+    return <>{icon}</>;
+  }
+  return React.createElement(icon, { className: "text-blue-500 h-6 w-6" });
+};
