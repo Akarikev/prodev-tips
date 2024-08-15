@@ -16,6 +16,7 @@ import { BiLogoJavascript } from "react-icons/bi";
 import { changeLanguageIcon } from "@/lib/lang-icon";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 
 type User = {
   username: string;
@@ -41,9 +42,19 @@ function Dashboard() {
   const [tips, setTips] = useState<Tip[]>([]);
   const [filteredTips, setFilteredTips] = useState<Tip[]>([]);
   const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
+  const [selectedFilter, setSelectedFilter] = useState<string>();
+
+  const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedFilter(event.target.value);
+    filterTipByLanguage(event.target.value);
+  };
 
   const filterTipByLanguage = (language: string, page: number = 1) => {
+    console.log(`Filtering by ${language} on page ${page}`);
     setCurrentPage(page); // Set the current page
+    setSelectedFilter(language); // Set the selected filter
+
+    console.log(`Selected filter: ${selectedFilter}`);
 
     if (language === "All") {
       const startIndex = (page - 1) * TIPS_PER_PAGE;
@@ -68,11 +79,12 @@ function Dashboard() {
     setTips(programmingTips);
   }, []);
 
-  // Load the first 10 tips when the component is first rendered
+  // Loads the first 10 tips when the component is first rendered
   useEffect(() => {
     if (tips.length > 0) {
       filterTipByLanguage("All");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tips]);
 
   // Calculate total pages for "All" filter
@@ -137,18 +149,24 @@ function Dashboard() {
               <h1 className="text-2xl md:text-4xl tracking-tighter font-extrabold text-muted-foreground">
                 Filters
               </h1>
-              <div className="flex gap-4 items-center mt-4 mb-4 justify-center">
+              <div className="flex gap-4 flex-wrap items-center mt-4 mb-4 justify-center">
                 {FILTERS.map((filter, i) => (
                   <small
                     key={i}
-                    className="cursor-pointer p-1.5 px-1.5 bg-zinc-200 hover:bg-zinc-500 text-black transition-all delay-100 hover:text-white rounded-full text-xs"
+                    className={buttonVariants({
+                      variant: "default",
+                      className: `cursor-pointer rounded-full hover:bg-opacity-50 hover:text-white ${
+                        selectedFilter === filter
+                          ? "text-muted-foreground"
+                          : "bg-accent text-accent-foreground"
+                      }`,
+                    })}
                     onClick={() => filterTipByLanguage(filter)}
                   >
                     {filter}
                   </small>
                 ))}
               </div>
-
               {/* Tips */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredTips.map((tip) => (
