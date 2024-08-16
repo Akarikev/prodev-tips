@@ -19,6 +19,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Footer from "@/components/footer";
+import AddTip from "@/components/addtip";
 
 type User = {
   username: string;
@@ -145,10 +146,9 @@ function Dashboard() {
               onChange={searchTip}
             />
 
-            <Button className="inline-flex gap-2 items-center">
-              <PlusCircleIcon className="w-4 h-4" />
-              Add Tip
-            </Button>
+            {/* add button */}
+
+            <AddTip />
           </div>
 
           <div className="mt-4">
