@@ -2,7 +2,7 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import { programmingTips } from "@/lib/data";
-import { LanguageIcon } from "../../page";
+import LanguageIcon from "@/components/language-icon";
 import Link from "next/link";
 import { ArrowBigLeftDash, ArrowLeftCircle } from "lucide-react";
 

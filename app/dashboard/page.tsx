@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Footer from "@/components/footer";
 import AddTip from "@/components/addtip";
+import LanguageIcon from "@/components/language-icon";
 
 type User = {
   username: string;
@@ -304,10 +305,10 @@ function Dashboard() {
 
 export default Dashboard;
 
-export const LanguageIcon = ({ language }: { language: string }) => {
-  const icon = changeLanguageIcon(language);
-  if (typeof icon === "string") {
-    return <span>{icon}</span>; // Render the string icon as text
-  }
-  return React.createElement(icon, { className: "text-blue-500 h-6 w-6" });
-};
+// export const LanguageIcon = ({ language }: { language: string }) => {
+//   const icon = changeLanguageIcon(language);
+//   if (typeof icon === "string") {
+//     return <span>{icon}</span>; // Render the string icon as text
+//   }
+//   return React.createElement(icon, { className: "text-blue-500 h-6 w-6" });
+// };
