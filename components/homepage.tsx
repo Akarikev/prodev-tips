@@ -51,11 +51,9 @@ function HomePage() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      {/* Radial gradient for the container to give a faded look */}
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-
-      <h1 className="font-extrabold text-2xl md:text-4xl tracking-tighter mt-16 uppercase">
+    <div className="dark:text-white">
+    
+      <h1 className="font-extrabold dark:text-white text-2xl md:text-4xl tracking-tighter mt-16 uppercase">
         Welcome to PRODEV Tips
       </h1>
 
@@ -87,24 +85,24 @@ function HomePage() {
             type="submit"
             className={buttonVariants({
               size: "lg",
-              className: "w-full",
+              className: "w-full mb-10",
             })}
             disabled={pending} // Disables the button when pending
           >
             {pending ? (
               <LoaderPinwheel className="w-6 h-6 animate-spin" />
             ) : (
-              "Get Started"
+              "Let's Go!"
             )}
           </Button>
         </form>
       </div>
 
-      <div className="mt-auto">
+      {/* <div className="mt-auto">
         <div className="divide-x-2">
           <h1 className="font-extrabold">by elorm with ❤️</h1>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
