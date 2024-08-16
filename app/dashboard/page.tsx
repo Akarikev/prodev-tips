@@ -153,7 +153,7 @@ function Dashboard() {
 
           <div className="mt-4">
             <h1 className="text-2xl md:text-4xl tracking-tighter font-extrabold text-muted-foreground">
-              Popular
+              Popular 🔥
             </h1>
             <p className="text-muted-foreground text-sm mt-2">
               Popular coding tips our editors curated! based on languages!
