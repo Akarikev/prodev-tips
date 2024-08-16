@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { JSX, SVGProps } from "react";
+import Footer from "@/components/footer";
 
 export default function LandingPage() {
   return (
@@ -237,36 +238,8 @@ export default function LandingPage() {
           </div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-muted-foreground">
-          &copy; 2024 Programming Tips. All rights reserved. &nbsp;{" "}
-          <span className="font-extrabold">
-            developed by
-            <Link
-              href={"https://elorm.site"}
-              className="underline text-blue-600"
-            >
-              {""} elorm.tsx
-            </Link>
-          </span>
-        </p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link
-            href="#"
-            className="text-xs hover:underline underline-offset-4"
-            prefetch={false}
-          >
-            Terms of Service
-          </Link>
-          <Link
-            href="#"
-            className="text-xs hover:underline underline-offset-4"
-            prefetch={false}
-          >
-            Privacy
-          </Link>
-        </nav>
-      </footer>
+      {/* footer */}
+      <Footer />
     </div>
   );
 }

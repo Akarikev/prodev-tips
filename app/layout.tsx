@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={cn("antialiased", inter.className)}>
         <ThemeProvider
           attribute="class"

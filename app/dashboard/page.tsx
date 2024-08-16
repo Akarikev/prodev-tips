@@ -2,7 +2,6 @@
 
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -12,13 +11,14 @@ import { LoaderPinwheel, PlusCircleIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { programmingTips } from "@/lib/data";
 import { Input } from "@/components/ui/input";
-import { BiLogoJavascript } from "react-icons/bi";
+import { Badge } from "@/components/ui/badge";
 import { changeLanguageIcon } from "@/lib/lang-icon";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Footer from "@/components/footer";
 
 type User = {
   username: string;
@@ -51,21 +51,25 @@ function Dashboard() {
   //   filterTipByLanguage(event.target.value);
   // };
 
+  const [noSearchFound, setNoSearchFound] = useState(false);
+
   const searchTip = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value;
+    const query = event.target.value.trim().toLowerCase();
     const filtered = tips.filter(
       (tip) =>
-        tip.title.toLowerCase().includes(query.toLowerCase()) ||
-        tip.language.toLowerCase().includes(query.toLowerCase())
+        tip.title.toLowerCase().includes(query) ||
+        tip.language.toLowerCase().includes(query)
     );
-    setFilteredTips(filtered);
-    setTopTips(filtered.slice(0, 5));
-    setCurrentPage(1);
 
-    if (!filtered) {
-      setSelectedFilter("All");
+    setFilteredTips(filtered);
+    setTopTips(filtered.slice(0, 5)); // Updates the top tips based on the search results
+    setCurrentPage(1); // Resets to the first page
+
+    if (filtered.length === 0) {
+      setNoSearchFound(true);
+    } else {
+      setNoSearchFound(false);
     }
-    // setSelectedFilter("All");
 
     console.log(`Searching for: ${query}`);
   };
@@ -112,13 +116,16 @@ function Dashboard() {
   const totalPages = Math.ceil(tips.length / TIPS_PER_PAGE);
 
   return (
-    <div className="flex flex-col h-screen p-6 md:p-16">
+    <div
+      className="flex flex-col h-screen p-6 md:p-16"
+      suppressHydrationWarning
+    >
       {user ? (
         <div>
           <hr className="mb-2" />
           <div className="flex justify-between gap-4">
             <h1 className="font-bold underline tracking-tighter text-muted-foreground">
-              Hello {user.username}!
+              Hello {user.username}! how&apos;s it going?
             </h1>
 
             <Avatar>
@@ -161,7 +168,16 @@ function Dashboard() {
                 >
                   <Card className="mt-4 hover:shadow-lg">
                     <CardHeader>
-                      <CardTitle>{tip.title}</CardTitle>
+                      <CardTitle className="inline-flex justify-between items-center ">
+                        {tip.title}
+
+                        <Badge
+                          variant="outline"
+                          className=" text-xs  rounded-full"
+                        >
+                          🔥
+                        </Badge>
+                      </CardTitle>
                       <CardDescription>{tip.tip}</CardDescription>
                     </CardHeader>
 
@@ -169,19 +185,35 @@ function Dashboard() {
                       <p>
                         <LanguageIcon language={tip.language} />
                       </p>
-                      <p>Author: {tip.author}</p>
-                      <p>{tip.date}</p>
+                      <p className="text-xs font-bold text-yellow-700">
+                        by {tip.author}
+                      </p>
+                      <p className="text-xs font-bold ">on {tip.date}</p>
                     </CardFooter>
                   </Card>
                 </Link>
               ))}
+
+              {/* No search results comp */}
+              <div className="flex justify-center items-center text-center">
+                {noSearchFound && (
+                  <p className="text-red-500 font-bold text-3xl text-center">
+                    No search results found
+                  </p>
+                )}
+              </div>
             </div>
 
             {/* Filters */}
             <div className="mt-10">
               <h1 className="text-2xl md:text-4xl tracking-tighter font-extrabold text-muted-foreground">
-                Filters
+                FOR YOU
               </h1>
+
+              <p className="text-muted-foreground text-sm mt-2 mb-4">
+                curated based on your{" "}
+                <span className="italic underline text-yellow-600">info</span>
+              </p>
 
               <p className="text-sm text-center text-muted-foreground">
                 <span className="underline">click</span> to filter by{" "}
@@ -209,6 +241,7 @@ function Dashboard() {
                   </small>
                 ))}
               </div>
+
               {/* Tips */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredTips.map((tip) => (
@@ -227,8 +260,10 @@ function Dashboard() {
                         <p>
                           <LanguageIcon language={tip.language} />
                         </p>
-                        <p>Author: {tip.author}</p>
-                        <p>{tip.date}</p>
+                        <p className="text-xs font-bold text-yellow-700">
+                          by {tip.author}
+                        </p>
+                        <p className="text-xs font-bold ">on {tip.date}</p>
                       </CardFooter>
                     </Card>
                   </Link>
@@ -237,7 +272,7 @@ function Dashboard() {
 
               {/* Pagination Controls */}
               {totalPages > 1 && (
-                <div className="flex justify-center mt-4">
+                <div className="flex justify-center mt-4 mb-9">
                   {Array.from({ length: totalPages }).map((_, index) => (
                     <Button
                       key={index}
@@ -258,9 +293,11 @@ function Dashboard() {
       ) : (
         <div className="flex flex-col items-center">
           <LoaderPinwheel className="animate-spin text-muted-foreground" />
-          <p className="text-muted-foreground">Loading your info...</p>
+          <p className="text-muted-foreground">Loading your dashbord info...</p>
         </div>
       )}
+
+      <Footer />
     </div>
   );
 }
