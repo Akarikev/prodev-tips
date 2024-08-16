@@ -51,11 +51,13 @@ function HomePage() {
   };
 
   return (
-    <div className="h-[50rem] dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col justify-center items-center h-screen">
       {/* Radial gradient for the container to give a faded look */}
-      {/* <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div> */}
+      <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
-      <h1 className="">Welcome to PRODEV Tips</h1>
+      <h1 className="font-extrabold text-2xl md:text-4xl tracking-tighter mt-16 uppercase">
+        Welcome to PRODEV Tips
+      </h1>
 
       <p className="mt-4 text-center italic underline underline-offset-4 decoration-wavy">
         Get programming tips and tricks here!
@@ -63,7 +65,7 @@ function HomePage() {
 
       <div className="mt-10">
         <h1 className="font-extrabold">
-          Let`&apos;s start by getting to know you.
+          Let&apos;s start by getting to know you.
         </h1>
 
         <form
@@ -72,14 +74,14 @@ function HomePage() {
           onSubmit={onSubmitFormData}
         >
           <label className="text-sm font-bold">Name: </label>
-          <Input placeholder="levi" name="name" />
+          <Input placeholder="levi" name="name" className="w-full" />
           <label className="text-sm font-bold">Role: </label>
-          <Input placeholder="fullstack dev" name="role" />
+          <Input placeholder="fullstack dev" name="role" className="w-full" />
 
           <label className="text-sm font-bold">
             Favorite Programming Lang.{" "}
           </label>
-          <Input placeholder="python" name="language" />
+          <Input placeholder="python" name="language" className="w-full" />
 
           <Button
             type="submit"

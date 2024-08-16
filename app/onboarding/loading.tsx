@@ -3,7 +3,7 @@ import { BiLoader } from "react-icons/bi";
 
 function Loading() {
   return (
-    <div className="flex justify-center items-center flex-col">
+    <div className="flex justify-center items-center flex-col h-screen">
       <h1>loading page....</h1>
 
       <div>
