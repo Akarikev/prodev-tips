@@ -9,7 +9,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import React, { Fragment } from "react";
+import React, { FormEvent, Fragment } from "react";
 import { Button } from "./ui/button";
 import { PlusCircleIcon } from "lucide-react";
 import {
@@ -32,6 +32,24 @@ import {
 import { Textarea } from "./ui/textarea";
 
 function AddTip() {
+  const getAddTipDetails = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event?.target as HTMLFormElement);
+
+    try {
+      const titleTip = data.get("tiptitle") as string;
+      const LanguageTip = data.get("language") as string;
+      const tip = data.get("tipdescription") as string;
+
+      console.log({
+        title: titleTip,
+        language: LanguageTip,
+        tip: tip,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Fragment>
       <div className="flex justify-center flex-col items-center">
@@ -62,20 +80,25 @@ function AddTip() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form>
+                  <form onSubmit={getAddTipDetails}>
                     <div className="grid w-full items-center gap-4">
                       <div className="flex flex-col space-y-1.5">
                         <Label htmlFor="name">Title</Label>
-                        <Input id="name" placeholder="Title of your tip" />
+                        <Input
+                          id="name"
+                          placeholder="Title of your tip"
+                          name="tiptitle"
+                        />
                         <Label htmlFor="name">Description</Label>
                         <Textarea
                           id="name"
+                          name="tipdescription"
                           placeholder="Short description of your tip"
                         />
                       </div>
                       <div className="flex flex-col space-y-1.5">
                         <Label htmlFor="framework">Language</Label>
-                        <Select>
+                        <Select name="language">
                           <SelectTrigger id="Language">
                             <SelectValue placeholder="Select" />
                           </SelectTrigger>
@@ -90,12 +113,13 @@ function AddTip() {
                         </Select>
                       </div>
                     </div>
+
+                    <CardFooter className="flex justify-between mt-8">
+                      <Button variant="outline">Cancel</Button>
+                      <Button type="submit">Add Tip</Button>
+                    </CardFooter>
                   </form>
                 </CardContent>
-                <CardFooter className="flex justify-between">
-                  <Button variant="outline">Cancel</Button>
-                  <Button>Add Tip</Button>
-                </CardFooter>
               </Card>
             </div>
 
