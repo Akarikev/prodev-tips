@@ -2,7 +2,6 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import { programmingTips } from "@/lib/data";
-import LanguageIcon from "@/components/language-icon";
 import Link from "next/link";
 import { ArrowBigLeftDash, ArrowLeftCircle } from "lucide-react";
 import { TipDetails } from "@/components/tip-details";
@@ -25,7 +24,7 @@ function Tips({ params }: { params: { id: string } }) {
   }, [params.id]);
 
   if (!tipD) {
-    return <p>Tip not found</p>;
+    return <p className="mt-3 font-extrabold text-center underline">Tip not found</p>;
   }
 
   return (
